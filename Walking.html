@@ -1,0 +1,72 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1, user-scalable=yes" />
+	<style type="text/css">
+		body, html,#allmap {width: 100%;height: 95%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7QhyhrAcIIryKNtKXzzYzI7MWVvos8ni"></script>
+	<title>步行导航检索</title>
+	<script src="js/mui.min.js"></script>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+
+<SCRIPT language=JavaScript>
+var value1 = localStorage.getItem("value1");
+var value2 = localStorage.getItem("value2");
+</SCRIPT>
+
+<div class="mui-button-row">
+<button type="button" class="mui-btn mui-btn-danger" id="beautiful">确认无误，开始预定时间</button>
+<button type="button" class="mui-btn mui-btn-danger" id="returnf">返回</button>
+</div>
+
+<script type="text/javascript">
+	// 百度地图API功能
+	var flag = false;
+	var map = new BMap.Map("allmap");
+	map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+	var output = "从起始地到目的地步行需要";
+		var searchComplete = function (results){
+		if (walking.getStatus() != BMAP_STATUS_SUCCESS){
+			return ;
+		}
+		var plan = results.getPlan(0);
+		output += plan.getDuration(true) + "\n";                //获取时间
+		localStorage.setItem("Walking_time",plan.getDuration(true));
+		flag = true;
+		output += "总路程为：" ;
+		output += plan.getDistance(true) + "\n";             //获取距离
+	}
+	//var walking = new BMap.WalkingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+	var walking = new BMap.WalkingRoute(map, {renderOptions: {map: map},
+		onSearchComplete: searchComplete,
+		onPolylinesSet: function(){        
+			setTimeout(function(){alert(output)},"1000");
+	}});
+	walking.search(value1, value2);
+	
+	mui('.mui-button-row').on('tap','#beautiful' ,function(event) {
+		if (!flag)
+		{
+			alert("步行出行请先选择起始地和目的地");
+		}
+		else
+		{
+			localStorage.setItem("Driving_time",0);
+			localStorage.setItem("Public_transfor_time",0);
+			mui.openWindow({
+			url:'CLOCK_TEST.html'
+			//url:'Alarm clock.html'
+			});
+		}
+			}) 
+	mui('.mui-button-row').on('tap','#returnf' ,function(event) {
+	 	mui.openWindow({
+		url:'MUI General framework.html'//返回上一层界面
+		});
+	 })		
+</script>

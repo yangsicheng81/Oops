@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=yes" />
+		<title>设定您的时间</title>
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<style>
+			html,
+			body,
+			.mui-content {
+				height: 0px;
+				margin: 0px;
+				background-color: #efeff4;
+			}
+ 
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+ 
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+ 
+			* {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">设定您的时间</h1>
+		</header>
+		
+		<br>
+		<script src="js/mui.min.js"></script>
+		
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				请输入预定到达时间：
+				<button id='date' class="btn mui-btn mui-btn-block">预计到达时间</button>
+				<div id='result'   class="ui-alert"></div>
+			</div>
+		</div>
+				
+		<script src="js/mui.min.js"></script>
+		<script src="js/mui.picker.min.js"></script>
+		<script>
+			mui.init();
+			var iTems;
+			var data8;
+			var btn = document.querySelector('#date');
+			var result = document.querySelector('#result');
+			var dtPicker = new mui.DtPicker({
+				type:'datetime'
+				
+			}); 
+			
+			// 监听日期选择点击事件
+			btn.addEventListener('tap', function() {
+											
+				dtPicker.show(function (selectItems) { 
+					result.innerHTML=selectItems.value;
+					iTems = dtPicker.getSelected();
+				})
+			}, false);
+		</script>			
+		</div>
+		<br>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+					<br><br><br>
+					请输入您需要提前提醒的时间：
+					<button id='date2' class="btn mui-btn mui-btn-block">提前提醒时间</button>
+				<div id='result2'   class="ui-alert"></div>
+			</div>
+		</div>
+
+		<script>
+			//mui.init();
+			var iTems2;
+			var btn2 = document.querySelector('#date2');
+			var result2 = document.querySelector('#result2');
+			
+			var dtPicker2 = new mui.DtPicker({
+				type:'time'
+				
+			}); 
+			btn2.addEventListener('tap', function() {
+											
+				dtPicker2.show(function (selectItems) { 
+					result2.innerHTML=selectItems.value;
+					iTems2 = dtPicker2.getSelected();
+				})
+			}, false);
+		</script>
+		
+		<br><br>
+		<SCRIPT language=JavaScript>
+	var Real_time;
+	var Driving_time = localStorage.getItem("Driving_time");
+	var Walking_time = localStorage.getItem("Walking_time");
+	var Public_transfor_time = localStorage.getItem("Public_transfor_time");
+	
+//	document.write("请输入您需要提前提醒的时间：");
+	var output = "（根据您的规划,预计从";
+	output += localStorage.getItem("value1");
+	output += "到";
+	output += localStorage.getItem("value2");
+	if(Driving_time != '0')
+	{
+		output += "驾车出行需要";
+		output += Driving_time;
+		Real_time = Driving_time;
+	}
+	else if(Walking_time != '0')
+	{
+		output += "步行出行需要";
+		output += Walking_time;
+		Real_time = Walking_time;
+	}
+	else if(Public_transfor_time != '0')
+	{
+		output += "公交出行需要";
+		output += Public_transfor_time;
+		Real_time = Public_transfor_time;
+	}
+	output += "）";
+	confirm(output);
+	//document.write(output);
+	
+	//document.write(parseInt(Driving_time.replace(/[^0-9]/ig,"")));
+	//if(parseInt(str.substring(1).substring(1)));
+	//document.write(parseInt(Driving_time));
+	</SCRIPT>
+
+	<!--<br><br>
+	<input type="text" value="" id="date2"><br>
+	<input type="button" onclick="go(document.getElementById('date2').value);" value="计时开始">
+	-->
+	<br><br><br><br><br><br><br>
+	 <div class="mui-button-row">
+	    	<button type="button"  class="mui-btn" onclick="go()">开始</button>
+	</div>
+	<div id="timer"></div>
+	
+	<script type="text/javascript">
+	 // 倒计时
+	var _ordertimer = null;
+	var data=new Date();
+	
+	
+	 //var iTems = dtPicker.getSelectedItems();
+//	 var Year = iTems.y;
+//	 var Month = iTems.m+1;
+//	 var days =iTems.d;
+//	 var hours = iTems.h;
+//	 var minutes = iTems.i;
+//	 var seconds = 0;
+	 
+	 function leftTimer(enddate) {
+	  var leftTime = (new Date(enddate)) - new Date(); //计算剩余的毫秒数
+	  var days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数
+	  var hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时
+	  var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟
+	  var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数
+	  days = checkTime(days);
+	  hours = checkTime(hours);
+	  minutes = checkTime(minutes);
+	  seconds = checkTime(seconds);
+	  
+	  var temp = 0;
+	  if(days==0)
+	  {
+	  	if(parseInt(Real_time.replace(/[^0-9]/ig,""))==parseInt(Real_time))
+		{
+			if(Real_time.substring(2)=="小时"||Real_time.substring(2)=="时")
+			{
+				if(hours<parseInt(Real_time))
+				{
+					alert("时间快不够了，请立即出发，当前闹钟：The Chainsmokers _ Coldplay - Something Just Like This.mp3");
+					startPlay();
+					window.clearInterval(_ordertimer);
+		 			_ordertimer = null;
+				}
+			}
+			else if(minutes-parseInt(iTems2.i.text)<parseInt(Real_time))
+			{
+				alert("时间快不够了，请立即出发，当前闹钟：The Chainsmokers _ Coldplay - Something Just Like This.mp3");
+				startPlay();
+				window.clearInterval(_ordertimer);
+	 			_ordertimer = null;
+			}
+		}
+		else
+		{
+			//alert("?");
+			if(parseInt(Real_time.replace(/[^0-9]/ig,""))-parseInt(Real_time)*100>0)
+			{
+				temp = parseInt(Real_time.replace(/[^0-9]/ig,"")-parseInt(Real_time)*100);
+			}
+			else if(parseInt(Real_time.replace(/[^0-9]/ig,""))-parseInt(Real_time)*10>0)
+			{
+				temp = parseInt(Real_time.replace(/[^0-9]/ig,"")-parseInt(Real_time)*10);
+			}
+			if((hours<parseInt(Real_time))&&(minutes-parseInt(iTems2.i.text)<temp))
+			{
+				window.clearInterval(_ordertimer);
+	 			_ordertimer = null;
+				alert("时间快不够了，请立即出发，当前闹钟：The Chainsmokers _ Coldplay - Something Just Like This.mp3");
+				startPlay();
+			}
+		}
+	  }
+	  else
+	  {}	
+	
+	  if (days >= 0 || hours >= 0 || minutes >= 0 || seconds >= 0) document.getElementById("timer").innerHTML = days + "天" + hours + "小时" + minutes + "分" + seconds + "秒";
+	  if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+	  window.clearInterval(_ordertimer);
+	  _ordertimer = null;
+	  }
+	 }
+
+	 
+	 function checkTime(i) { //将0-9的数字前面加上0，例1变为01
+	  if (i < 10) {
+	  i = "0" + i;
+	  }
+	  return i;
+	 }
+	 function go(data8){
+	 data8 = iTems;
+	 
+	 var date1=new Date(),data2=new Date(data8);
+//	 alert(data2);
+//	 alert(date1);
+//	alert(iTems2.i.text);
+//	alert(parseInt(iTems2.i.text));
+	if(data2<date1)
+	 {
+	 	alert("设置的时间小于现在时间\n请检查预定到达时间");
+	 	return;//设置的时间小于现在时间退出
+	 }
+	 _ordertimer = setInterval(function(){leftTimer(data8)}, 1000);
+	 }
+	 </script>
+	
+	
+	<!--<div class="mui-button-row">
+	    	<button type="button"  class="mui-btn" onclick="startPlay()">闹铃</button>
+	</div>-->
+	
+	<script type="text/javascript">
+		// 扩展API加载完毕后调用onPlusReady回调函数 
+		document.addEventListener( "plusready", onPlusReady, false );
+		// 扩展API加载完毕，现在可以正常调用扩展API 
+		function onPlusReady() { 
+		}
+		var p = null; 
+		function startPlay() {
+			if ( plus.audio == undefined ) {
+				alert( "Device not ready!" );
+			}
+			
+			p = plus.audio.createPlayer( "The Chainsmokers _ Coldplay - Something Just Like This.mp3" );
+			p.play( function () {
+				alert( "Audio play success!" ); 
+			}, function ( e ) {
+				alert( "Audio play error: " + e.message ); 
+			} ); 
+		}
+	</script>
+	
+	
+	</body>
+</html>

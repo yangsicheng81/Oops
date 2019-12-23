@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5,user-scalable=yes" />
+    <link rel="stylesheet" type="text/css" href="css/mui.css"/>
+</head>
+
+<body>  
+    <div class="mui-content">  
+        <div id="slider" class="mui-slider">  
+            <div class="mui-slider-group mui-slider-right">  
+                <div class="mui-slider-item">  
+                    <img src="1.png" height="100%">  
+                </div>  
+                <div class="mui-slider-item">  
+                    <img src="2.png" height="100%">  
+                </div>  
+                <div class="mui-slider-item">  
+                    <img src="3.png" height="100%">  
+                </div>  
+                <div class="mui-slider-item">  
+                    <img src="4.png" height="94%"> 
+                    <div class="mui-button-row">
+                    <button type="button" class="mui-btn" onclick="nextf()">开启全新版本</button>
+                    </div>
+                </div>  
+            </div>
+                        <div class="mui-slider-indicator mui-text-center">  
+                <div class="mui-indicator mui-active"></div>  
+                <div class="mui-indicator"></div>  
+                <div class="mui-indicator"></div>  
+                <div class="mui-indicator"></div>  
+            </div>  
+        </div>  
+    </div>  
+    
+    
+</body>  
+<script src="js/mui.min.js"></script>  
+</html>
+<!DOCTYPE html>
+<script>
+	{
+	function nextf()
+	{
+		mui.openWindow({
+		url:'MUI General framework.html'
+		});
+	}
+}
+</script>
+
+//以上代码为滑动引导界面

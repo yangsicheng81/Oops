@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=300,initial-scale=1,minimum-scale=1,maximum-scale=8,user-scalable=yes" />
+    <link rel="stylesheet" type="text/css" href="css/mui.css"/>
+</head>
+<body>
+    
+    <script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+    mui.init()
+    </script>
+    <!-- 主界面不动、菜单移动 -->
+    <!-- 侧滑导航根容器 -->
+    <div class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+      <!-- 菜单容器 -->
+      <aside class="mui-off-canvas-left" id="offCanvasSide">
+        <div class="mui-scroll-wrapper">
+          <div class="mui-scroll">
+            <!-- 菜单具体展示内容 -->
+            
+          </div>
+        </div>
+      </aside>
+      <!-- 主页面容器 -->
+      <div class="mui-inner-wrap">
+        <!-- 主页面标题 -->
+        <header class="mui-bar mui-bar-nav">
+          <a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left" href="#offCanvasSide"></a>
+          <h1 class="mui-title">别迟到</h1>
+        </header>
+        <nav class="mui-bar mui-bar-tab">
+    	    <a class="mui-tab-item mui-active">
+    	        <span class="mui-icon mui-icon-home"></span>
+    	        <span class="mui-tab-label">首页</span>
+    	    </a>
+    	    <a class="mui-tab-item">
+    	        <span class="mui-icon mui-icon-email"></span>
+    	        <span class="mui-tab-label">记录</span>
+    	    </a>
+    	    <a class="mui-tab-item">
+    	        <span class="mui-icon mui-icon-gear"></span>
+    	        <span class="mui-tab-label">设置</span>
+    	    </a>
+    	</nav>
+        <div class="mui-content mui-scroll-wrapper">
+          <div class="mui-scroll">
+            <!-- 主界面具体展示内容 -->
+            <br>
+            <br>
+            <br>
+            <form class="mui-input-group">
+	    <div class="mui-input-row">
+	    	<label>起始地</label>
+	    <input type="text" class="mui-input-clear" placeholder="请输入起始地点">
+	    </div>
+	    <div class="mui-input-row">
+	        <label>目的地</label>
+	        <input type="text" class="mui-input-clear" placeholder="请输入目的地点">
+	    </div>
+	    <div class="mui-button-row">
+	    	<button type="button" class="mui-btn mui-btn" onclick="sss()">确认</button>//点击之后响应事件为sss()函数
+	        <button type="button" class="mui-btn mui-btn" >取消</button>
+	    </div>
+		</form>
+		
+		<br>
+		<div class="mui-button-row">
+		<button type="button" class="mui-btn mui-btn" id="makeSure">驾车出行</button>
+		<button type="button" class="mui-btn mui-btn" id="notmakesure">公交出行</button>
+		<button type="button" class="mui-btn mui-btn" id="Sure">步行出行</button>
+		</div>
+		
+	//这里准备有时间写一个九宫格的	
+    <!--<ul class="mui-table-view mui-grid-view mui-grid-9">
+    
+    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-10">
+        <a href="#">
+            <span class="mui-icon mui-icon-location"></span>
+         <!--   <div class="mui-media-body">Location</div>-->
+         <!--<br><br>
+         <div class="mui-button-row">
+            <button type="button" class="mui-btn" id="makeSure">驾车出行</button>
+       </div>
+        </a>
+    </li>
+    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+            <span class="mui-icon mui-icon-search"></span>
+            <div class="mui-media-body">Search</div>
+        </a>
+    </li>
+    <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+        <a href="#">
+            <span class="mui-icon mui-icon-phone"></span>
+            <div class="mui-media-body">Phone</div>
+        </a>
+    </li>
+        </ul>-->
+
+		
+		<script type="text/javascript">
+		var flag = false;
+		    function sss () {
+		var m = mui(".mui-input-clear");
+		var uncomplete = false; 
+		
+		mui.each(m,function (index,item) {
+		    
+		    if ( (mui(".mui-input-clear")[0].value== "")||(mui(".mui-input-clear")[1].value== "")) {
+		uncomplete = true;
+		    }
+		        });
+		if (uncomplete) {
+		mui.toast("请填写信息");//如果有信息为空则需要填写填写
+		
+		} else{
+		mui.toast("设置成功");
+		flag = true;
+		//以下为不同页面之间传递参数
+		localStorage.setItem("value1",mui(".mui-input-clear")[0].value);//设置
+		localStorage.setItem("value2",mui(".mui-input-clear")[1].value);//设置
+		}
+		    }
+		    
+//	    function ssss(){
+//	    	mui(".mui-input-clear")[0].value== "";
+//	    	mui(".mui-input-clear")[1].value== "";
+//	    	localStorage.setItem("value1",mui(".mui-input-clear")[0].value);//设置
+//			localStorage.setItem("value2",mui(".mui-input-clear")[1].value);//设置
+//	    	flag = false;
+//	    }
+//		取消清除功能按钮
+
+		 mui('.mui-button-row').on('tap','#makeSure' ,function(event) {
+				if (!flag)
+				{
+					mui.toast("驾车出行请先确认起始地和目的地");
+				}
+				else
+				{
+					mui.openWindow({
+		   			url:'Driving.html'
+		 			});
+				}
+	    			}) 
+		 
+		mui('.mui-button-row').on('tap','#makeSure' ,function(event) {
+				if (!flag)
+				{
+					mui.toast("驾车出行请先确认起始地和目的地");
+				}
+				else
+				{
+					mui.openWindow({
+		   			url:'Driving.html'
+		 			});
+				}
+	    			}) 
+	    
+	    mui('.mui-button-row').on('tap','#notmakesure' ,function(event) {
+				if (!flag)
+				{
+					mui.toast("公交出行请先确认起始地和目的地");
+				}
+				else
+				{
+					mui.openWindow({
+		   			url:'Public transportation.html'
+		 			});
+				}
+	    			}) 
+	    
+	    mui('.mui-button-row').on('tap','#Sure' ,function(event) {
+				if (!flag)
+				{
+					mui.toast("步行出行请先确认起始地和目的地");
+				}
+				else
+				{
+					mui.openWindow({
+		   			url:'Walking.html'
+		 			});
+				}
+	    			}) 
+		</script>
+	
+
+                
+    </div>
+    
+</body>
+</html>
